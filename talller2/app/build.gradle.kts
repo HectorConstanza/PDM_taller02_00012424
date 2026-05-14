@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.pdm0126.foodspot"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

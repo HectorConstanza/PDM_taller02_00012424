@@ -2,7 +2,7 @@ package com.pdm0126.foodspot.screens.Foodlist
 
 
 import androidx.lifecycle.ViewModel
-import com.pdm0126.foodspot.data.
+import com.pdm0126.foodspot.data.FoodRepository
 import com.pdm0126.foodspot.model.Restaurant
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,8 +12,8 @@ data class RestaurantListUiState(
     val groupedRestaurants: Map<String, List<Restaurant>> = emptyMap()
 )
 
-class RestaurantListViewModel(
-    private val repository: RestaurantRepository
+class FoodlistViewModel(
+    private val repository: FoodRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RestaurantListUiState())

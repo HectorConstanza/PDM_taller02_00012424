@@ -12,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.pdm0126.foodspot.ui.theme.FoodSpotTheme
+import com.pdm0126.foodspot.data.FoodRepositoryImpl
+import com.pdm0126.foodspot.screens.Foodlist.FoodListScreen
+import com.pdm0126.foodspot.screens.Foodlist.FoodlistViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,17 +22,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FoodSpotTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val repository = FoodRepositoryImpl()
+                val viewModel = FoodlistViewModel(repository)
+
+                FoodListScreen(
+                    viewModel = viewModel,
+                    onRestaurantClick = { },
+                    onSearchClick = { }
+                )
             }
         }
     }
 }
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
