@@ -12,9 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.pdm0126.foodspot.ui.theme.FoodSpotTheme
-import com.pdm0126.foodspot.data.FoodRepositoryImpl
-import com.pdm0126.foodspot.screens.Foodlist.FoodListScreen
-import com.pdm0126.foodspot.screens.Foodlist.FoodlistViewModel
+import com.pdm0126.foodspot.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,30 +20,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FoodSpotTheme {
-                val repository = FoodRepositoryImpl()
-                val viewModel = FoodlistViewModel(repository)
+                AppNavigation()
 
-                FoodListScreen(
-                    viewModel = viewModel,
-                    onRestaurantClick = { },
-                    onSearchClick = { }
-                )
             }
         }
-    }
-}
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FoodSpotTheme {
-        Greeting("Android")
     }
 }

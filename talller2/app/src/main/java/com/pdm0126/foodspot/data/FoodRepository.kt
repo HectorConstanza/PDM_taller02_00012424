@@ -6,4 +6,5 @@ interface FoodRepository{
     fun getRestaurants(): List<Restaurant>
     fun getRestaurantById(id: Int): Restaurant?
     fun searchRestaurants(query: String): List<Restaurant>
+
 }
