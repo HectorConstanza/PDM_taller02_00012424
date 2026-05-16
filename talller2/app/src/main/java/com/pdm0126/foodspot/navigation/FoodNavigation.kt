@@ -7,12 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pdm0126.foodspot.data.FoodRepositoryImpl
 import com.pdm0126.foodspot.screens.Foodlist.FoodListScreen
 import com.pdm0126.foodspot.screens.Foodlist.FoodlistViewModel
 import com.pdm0126.foodspot.screens.FoodDetail.FoodDetailScreen
 import com.pdm0126.foodspot.screens.FoodDetail.FoodDetailViewModel
+import com.pdm0126.foodspot.screens.FoodSearch.FoodSearchScreen
+import com.pdm0126.foodspot.screens.FoodSearch.FoodSearchViewModel
 
 
 @SuppressLint("ViewModelConstructorInComposable")
@@ -20,6 +21,7 @@ import com.pdm0126.foodspot.screens.FoodDetail.FoodDetailViewModel
 fun AppNavigation() {
 
     val navController = rememberNavController()
+    val repository = FoodRepositoryImpl()   // ← una sola instancia para todos
 
     NavHost(
         navController = navController,
@@ -28,18 +30,11 @@ fun AppNavigation() {
 
         // ───── Pantalla 1 ─────────────────────────────
         composable("food_list") {
-
-            val viewModel = FoodlistViewModel(
-                FoodRepositoryImpl()
-            )
-
             FoodListScreen(
-                viewModel = viewModel,
-
+                viewModel = FoodlistViewModel(repository),
                 onRestaurantClick = { restaurantId ->
                     navController.navigate("restaurant_detail/$restaurantId")
                 },
-
                 onSearchClick = {
                     navController.navigate("search")
                 }
@@ -50,27 +45,25 @@ fun AppNavigation() {
         composable(
             route = "restaurant_detail/{restaurantId}",
             arguments = listOf(
-                navArgument("restaurantId") {
-                    type = NavType.IntType
-                }
+                navArgument("restaurantId") { type = NavType.IntType }
             )
         ) { backStackEntry ->
-
-            val restaurantId =
-                backStackEntry.arguments?.getInt("restaurantId") ?: 0
-
-            val viewModel = FoodDetailViewModel(restaurantId)
-
+            val restaurantId = backStackEntry.arguments?.getInt("restaurantId") ?: 0
             FoodDetailScreen(
-                viewModel = viewModel,
-
-                onBackClick = {
-                    navController.popBackStack()
-                }
+                viewModel = FoodDetailViewModel(restaurantId),
+                onBackClick = { navController.popBackStack() }
             )
         }
 
         // ───── Pantalla 3 ─────────────────────────────
-
+        composable("search") {
+            FoodSearchScreen(
+                viewModel = FoodSearchViewModel(repository),
+                onRestaurantClick = { restaurantId ->
+                    navController.navigate("restaurant_detail/$restaurantId")
+                },
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
     }
 }

@@ -168,7 +168,9 @@ class FoodRepositoryImpl : FoodRepository {
                 Dish(32, "Pollo alla Parmigiana", "Pollo empanizado cubierto con salsa de tomate y mozzarella",
                     "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=600"),
                 Dish(33, "Tiramisu della Nonna", "Receta original de la nonna con bizcochos savoiardi",
-                    "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600")
+                    "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600"),
+                Dish(34, "Pizza Margarita", "Mozzarella fresca, albahaca y salsa de tomate casera",
+                    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600"),
             )
         )
     )
